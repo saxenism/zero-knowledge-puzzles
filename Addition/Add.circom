@@ -10,7 +10,6 @@ template Add() {
    signal output c;
 
    c <== a[0] + a[1];
-   
 }
 
 component main  = Add();
