@@ -9,7 +9,14 @@ pragma circom 2.1.4;
 
 
 template Range() {
-    // your code here
+    signal input a, lowerbound, upperbound;
+    signal output out;
+
+    signal intermediate;
+    var checkRange = a > lowerbound && a < upperbound ? 1 : 0;
+
+    intermediate <-- checkRange;
+    out <== intermediate;
    
 }
 
