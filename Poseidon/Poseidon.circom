@@ -20,9 +20,13 @@ template poseidon() {
    in_arr[3] = d;   
 
    component hashing = Poseidon(4);
-   for(var i = 0; i < 4; i++) {
-      hashing.inputs[i] <== in_arr[i];
-   }
+   
+   // for(var i = 0; i < 4; i++) {
+   //    hashing.inputs[i] <== in_arr[i];
+   // }
+   
+   hashing.inputs <== in_arr;
+   
 
    out <== hashing.out;
 }
