@@ -5,11 +5,10 @@ pragma circom 2.1.8;
 // and 0 otherwise. This circuit should work for an arbitrary
 // length of `in`.
 
-template HasAtLeastOne(n) {
-    signal input in[n];
-    signal input k;
-    signal output out;
+// Solving this problem with the assumption that the entries are either 1 or 0
+// 
 
+template HasAtLeastOne(n) {    
 }
 
 component main = HasAtLeastOne(4);
