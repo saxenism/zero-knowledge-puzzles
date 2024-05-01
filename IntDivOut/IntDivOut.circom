@@ -10,6 +10,24 @@ template IntDivOut(n) {
     signal input denominator;
     signal output out;
 
+    signal remainder;
+    signal quotient;
+
+    quotient <-- numerator \ denominator;
+    remainder <-- numerator - (quotient * denominator);
+
+    // Constrain 1: Remainder should be lesser than the denominator
+    component isLessThan = LessThan(n);
+    isLessThan.in[0] <== remainder;
+    isLessThan.in[1] <== denominator;
+
+    1 === isLessThan.out;
+
+    // Constrain 2: These values should follow the formula -> n = (q * d) + r
+    numerator - remainder === quotient * denominator;
+
+    // Constraint 3: The constraint unique to this challenge
+    out <== quotient;
 }
 
 component main = IntDivOut(252);
