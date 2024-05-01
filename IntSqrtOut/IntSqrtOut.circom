@@ -10,18 +10,42 @@ include "../node_modules/circomlib/circuits/comparators.circom";
 // this is not the modular square root.
 
 
-function intSqrtFloor(x) {
-    // compute the floor of the
-    // integer square root
+function intSqrtFloor(num) {
+    // Base case
+    if(num == 0 || num == 1) {
+        return num;
+    }
+
+    var i = 1;
+    var result = 1;
+
+    while(result <= num) {
+        i += 1;
+        result = i * i;
+    }
+
+    return i - 1;
 }
 
 template IntSqrtOut(n) {
     signal input in;
     signal output out;
 
-    out <-- intSqrtFloor(x);
-    // constrain out using your
-    // work from IntSqrt
+    out <-- intSqrtFloor(in);
+    
+    // Constraint 1: (out - 1) * (out - 1) < in
+    component isLess = LessThan(n);
+    isLess.in[0] <== (out - 1) * (out - 1);
+    isLess.in[1] <== in;
+
+    1 === isLess.out;
+
+    // Constrain 2: (out + 1) * (out + 1) > in
+    component isGreater = GreaterThan(n);
+    isGreater.in[0] <== (out + 1) * (out + 1);
+    isGreater.in[1] <== in;
+
+    1 === isGreater.out;
 }
 
 component main = IntSqrtOut(252);
