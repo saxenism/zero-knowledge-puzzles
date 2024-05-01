@@ -41,12 +41,14 @@ function floor_square_root(num) {
 template IntSqrt(n) {
     signal input in[2];
     signal floor_sqrt <-- floor_square_root(in[1]);
+    
     log(floor_sqrt);
-    // component isEqual = IsEqual();
-    // isEqual.in[0] <== floor_sqrt;
-    // isEqual.in[1] <== in[1];
+    
+    component isEqual = IsEqual();
+    isEqual.in[0] <== floor_sqrt;
+    isEqual.in[1] <== in[0];
 
-    // 1 === isEqual.out;
+    1 === isEqual.out;
 
     // Adding the constraints listed out in the question 
     // Constraint 1: (b-1) * (b-1) < a
